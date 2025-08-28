@@ -2,16 +2,8 @@ import discord
 from discord import app_commands
 import yt_dlp
 import os
-import base64
 
 TOKEN = os.environ.get("TOKEN")
-
-# Decode and write the cookies file
-cookies_base64 = os.environ.get("YOUTUBE_COOKIES_BASE64")
-if cookies_base64:
-    cookies_decoded = base64.b64decode(cookies_base64)
-    with open("cookies.txt", "wb") as f:
-        f.write(cookies_decoded)
 
 # Configuración de yt_dlp y FFmpeg
 YDL_OPTIONS = {
