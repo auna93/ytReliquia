@@ -1,1 +1,1 @@
-worker: echo $YOUTUBE_COOKIES_BASE64 | base64 -d > cookies.txt && python3 bot.py
+worker: bash -c "echo $YOUTUBE_COOKIES_BASE64 | base64 -d > cookies.txt; ls -l; python3 bot.py"
