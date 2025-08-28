@@ -72,11 +72,14 @@ async def reproducir(interaction: discord.Interaction, busqueda: str):
     try:
         # Paso 4: Buscar y obtener la información del video.
         with yt_dlp.YoutubeDL(YDL_OPTIONS) as ydl:
-            search_results = ydl.extract_info(f"ytsearch:{busqueda}", download=False)
-            if not search_results['entries']:
-                await interaction.followup.send(f"No se encontraron resultados para: {busqueda}")
-                return
-            info = search_results['entries'][0]
+            if busqueda.startswith("http"):
+                info = ydl.extract_info(busqueda, download=False)
+            else:
+                search_results = ydl.extract_info(f"ytsearch:{busqueda}", download=False)
+                if not search_results['entries']:
+                    await interaction.followup.send(f"No se encontraron resultados para: {busqueda}")
+                    return
+                info = search_results['entries'][0]
             audio_url = info['url']
         
         # Paso 5: Reproducir el audio.
